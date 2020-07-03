@@ -13,12 +13,14 @@ $_SESSION["videotracker"] = "no";
   	unset($_SESSION['username']);
   	header("location: login.php");
   }
-  $myDB = $_SESSION['username'];
+  $myDB = "bjekqemy_aleph";
+  $username = $_SESSION["username"];
+  $pictureTable = $_SESSION["picture"];
 ?>
 <html>
 <head>
-	<title>Hitting the Highlights</title>
-  <?php echo "username which means DB name is ".$myDB."<sbr>";  ?>
+	<title>SimpleShare</title>
+
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<style>
 .thumbnail {
@@ -109,9 +111,9 @@ input {
 <body>
 
 
-<h1>Hitting the Highlights Video Creation</h1>
+<h1>SimpleShare</h1>
 <div class="grid-container">
-
+<?php echo "<h1>Let's send some videos ".$username."!</h1>";  ?>
     <div class="item1"> <form name="frm" action="upload.php" method="post" enctype="multipart/form-data">
 
 <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" onchange="document.getElementById('submit').click()">
@@ -147,7 +149,8 @@ if (array_key_exists('delete_file', $_POST)) {
     <h2>Choose first picture</h2>
 
 <?php
-displayTwoFiles(picture_url);
+//displayTwoFiles(picture_url);
+find_image($pictureTable, picture_url);
 ?>
 
 
@@ -155,7 +158,8 @@ displayTwoFiles(picture_url);
 <div class="item4">
     <h2>Choose second picture</h2>
 <?php
-displayTwoFiles(picture_url2);
+//displayTwoFiles(picture_url2);
+find_image($pictureTable, picture_url2);
 ?>
 </div>
 <div class="item5">

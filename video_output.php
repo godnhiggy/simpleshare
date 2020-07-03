@@ -2,7 +2,9 @@
 session_start();
 ob_start();
 include('db_build.php');
-$myDB = $_SESSION['username'];
+$myDB = "bjekqemy_aleph";
+//$url = $_SESSION["url"];
+$url = "url";
 ?>
 <!DOCTYPE html>
 <html>
@@ -338,7 +340,7 @@ $uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].$_SERVER['REQU
 $servername = "localhost";
 $username = "bjekqemy_higgy";
 $password = "Brett73085";
-$dbname = $myDB;
+$dbname = "$myDB";
 
  //Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -361,7 +363,7 @@ if ($session == "no") {
 
 
         //insert into DB
-        $sql = "INSERT INTO url (longURL) VALUES ('$uri')";
+        $sql = "INSERT INTO $url (longURL) VALUES ('$uri')";
         if (mysqli_query($conn, $sql)) {
           //echo "New record created successfully";
         } else {
@@ -374,7 +376,7 @@ if ($session == "no") {
 
 
     //select new short url from DB
-$sql = "SELECT id FROM url WHERE longURL = '$uri' LIMIT 1";
+$sql = "SELECT id FROM $url WHERE longURL = '$uri' LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
@@ -387,7 +389,7 @@ if ($result->num_rows > 0) {
       //the message - my short url
 $msg = "www.coachhiggy.com/hth/resend.php?short=$realid";
 $_SESSION['realid']=$realid;
-$sql = "UPDATE url SET shortURL='$msg' WHERE longURL='$uri'";
+$sql = "UPDATE $url SET shortURL='$msg' WHERE longURL='$uri'";
 $result = $conn->query($sql);
 // send email - text with short url
 //mail("godnhiggy@gmail.com","New Player",$msg);
@@ -401,7 +403,8 @@ $session = $_SESSION["videotracker"];
 
 	<form action="cust_input.php" method="GET">
 
- <input name="short" value="<?php echo $realid; ?>" type="submit" size="200">
+ <input name="short" value="Click to Finalize Video!" type="submit" size="200">
+<input type="hidden" name="short" value="<?php echo $realid; ?>">
 </form>
 
 <?php
@@ -410,7 +413,7 @@ $session = $_SESSION["videotracker"];
 else{ echo "";
 
     //select new short url from DB
-$sql = "SELECT id FROM url WHERE longURL = '$uri' LIMIT 1";
+$sql = "SELECT id FROM $url WHERE longURL = '$uri' LIMIT 1";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

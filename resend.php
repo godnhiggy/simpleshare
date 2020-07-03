@@ -3,7 +3,7 @@
 session_start();
 ob_start();
 
-$myDB = $_SESSION["username"];
+//$myDB = "bjekqemy_aleph";
 $short = $_GET["short"];
 $_SESSION["short"]=$short;
 //connect to DB
@@ -11,8 +11,10 @@ $_SESSION["short"]=$short;
 $servername = "localhost";
 $username = "bjekqemy_higgy";
 $password = "Brett73085";
-$dbname = $myDB;
-
+$dbname = "bjekqemy_aleph";
+//$url = $_SESSION["url"];
+$url = "url";
+//echo "URL is ---".$url;
  //Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
  //Check connection
@@ -28,14 +30,15 @@ if ($conn->connect_error) {
 //$result = $conn->query($sql);
 
     //select new short url from DB
-$sql = "SELECT longURL FROM url WHERE id = '$short'";
+$sql = "SELECT longURL FROM $url WHERE id = '$short'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 
     // output data of each row
     while($row = $result->fetch_assoc()) {
 
-        $id = $row["longURL"];}}
+        $id = $row["longURL"];}
+      }
 //echo $id."this is working";
 
 
@@ -43,7 +46,7 @@ if ($result->num_rows > 0) {
 
 //$short = "http://www.coachhiggy.com";
 header("Location: $id");
-
+//echo "This is the url table ---".$url;
 ?>
 <!DOCTYPE html>
 <html>
@@ -66,11 +69,11 @@ header("Location: $id");
 
     // output data of each row
     //while($row = $result->fetch_assoc()) {
-$userInfo = $_SERVER['REMOTE_ADDR']
+$userInfo = $_SERVER['REMOTE_ADDR'];
        //$useremail = $row["email"];
 
-mail("6787946711@txt.att.net"," Your Video just got viewed by ".$userInfo, "$short");
-mail("$to", "Hitting the Highlights", "$message", "$headers");
+mail("6787946711@txt.att.net"," Your Video just got viewed by $userInfo", "$short");
+//mail("$to", "Hitting the Highlights", "$message", "$headers");
     //}
 
 //}

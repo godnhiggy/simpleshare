@@ -6,14 +6,14 @@ if(!isset($short)){
 
     $short=$_SESSION["realid"];
 }
-$myDB = $_SESSION["username"];
+$myDB = "aleph";
 //connect to DB
 //login into DB
 
 
-$customer = $_POST["customers"];
+$customerEmailed = $_POST["customers"];
 $msg = "www.coachhiggy.com/$myDB/resend.php?short=$short";
-echo $msg;
+//echo $msg;
 //echo "this is the customer ".$customer;
 //print_r($customer);
 
@@ -39,14 +39,14 @@ echo $msg;
 
     // output data of each row
 
-$arrlength = count($customer);
+$arrlength = count($customerEmailed);
 
 for($x = 0; $x < $arrlength; $x++) {
     //echo $customer[$x];
     //echo "<br>";
 
 
-        $useremail = $customer[$x];
+        $useremail = $customerEmailed[$x];
 
 //echo $useremail."<br>";
 //$from = $_POST['from'];
@@ -139,8 +139,8 @@ mail("$to", "Hitting the Highlights", "$message", "$headers");
 ob_flush();
 
 ?>
-<!--<script>
+<script>
 window.location.href = "video_input.php";
-</script>-->
+</script>
 </body>
 </html>

@@ -4,7 +4,7 @@ function build_tables($myUserName){
 $servername = "localhost";
 $username = "bjekqemy_higgy";
 $password = "Brett73085";
-$myDB = "bjekqemy_hth";
+$myDB = "bjekqemy_aleph";
 
 
 // Check connection to build tables for app
@@ -28,7 +28,7 @@ reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )";
 
 if ($conn->query($sql1) === TRUE) {
-  echo "Table customers created successfully<br>";
+  //echo "Table customers created successfully<br>";
 } else {
   echo "Error creating table: " . $conn->error;
 }
@@ -62,14 +62,16 @@ if ($conn->query($sql3) === TRUE) {
 }
 
 $conn->close();
-
+$_SESSION["customer"] = $customer;
+$_SESSION["picture"] = $picture;
+$_SESSION["url"] = $url;
 }
 
 function connect_db(){
 $servername = "localhost";
 $username = "bjekqemy_higgy";
 $password = "Brett73085";
-$myDB = "bjekqemy_hth";
+$myDB = "bjekqemy_aleph";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $myDB);
@@ -81,7 +83,7 @@ if ($conn->connect_error) {
 
 }
 
-function displayTwoFiles($picture){
+function displayTwoFilesEXTRA($picture){
 $data = array();
 //include('server1.php');
 $dir = "uploads/";
@@ -157,6 +159,45 @@ $hh = scandir($dir,1);
 
 }
 
+function find_image($pictureTable, $picture){
 
+  //connect to
+  $servername = "localhost";
+  $username = "bjekqemy_higgy";
+  $password = "Brett73085";
+  $myDB = "bjekqemy_aleph";
+
+  // Create connection
+  $conn = new mysqli($servername, $username, $password, $myDB);
+
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  ////select last two images in table user_picture
+  $sql = "SELECT picture FROM $pictureTable ORDER BY id DESC LIMIT 2";
+  //$result = $conn->query($sql);
+
+  $result=mysqli_query($conn, $sql);
+  if ($result->num_rows > 0)
+            {
+
+      // output data of each row
+      while($row = $result->fetch_assoc()) {
+  $dbImage = $row["picture"];
+
+            //echo "This is the name of the picture file -- ".$dbImage."<br>";
+
+              //in loop find images in folder uploads
+
+  ?>
+                    <input type="radio" name="<?php echo $picture;?>" value="uploads/<?php echo $dbImage; ?>"/><img src="uploads/<?php echo $dbImage; ?>" width="50" height="60" class="thumbnail" >
+
+                    <br>
+                    <?php
+                    //echo "This is the pictureName --- ".$picture."<br><br>";
+}
+  }
+    }
 
  ?>

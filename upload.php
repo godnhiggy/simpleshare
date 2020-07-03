@@ -1,13 +1,15 @@
 <?php
 session_start();
-$myDB = $_SESSION['username'];
+$myDB = "bjekqemy_aleph";
 include('server.php');
 //echo "<a href='exp_bus_front_page.php'>Back to Business Page</a>";
 //echo "<br>";
 $target_dir = "uploads/";
 $original = basename($_FILES["fileToUpload"]["name"]);
 //echo $original."<br>";
+//$pictureTable = "h_picture";
 
+$pictureTable = $_SESSION["picture"];
 $t=time();
 $tTime = $t.".jpeg";
 //echo $tTime;
@@ -60,7 +62,7 @@ if ($uploadOk == 0) {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir.$tTime)) {
         //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
         //rename($target_file, $tTime);
-
+        //$newImageName = $target_dir.$tTime;
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
@@ -210,15 +212,19 @@ $conn = new mysqli($servername, $username, $password, $dbname);
  //Check connection
     if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-    }
+  }else{
 
 
 
-        $sql = "INSERT INTO pictures (picture)
-VALUES ('$target_file')";
+        $sql = "INSERT INTO $pictureTable (picture)
+VALUES ('$tTime')";
+//VALUES ('$target_file')";
 $result = $conn->query($sql);
-
+//echo "inside now<br>";
+//echo $myDB." my database<br>";
+//echo $tTime." the image<br>";
+//echo $pictureTable."---- the table to insert into<br>";
 
 header('location: video_input.php');
-
+}
 ?>

@@ -22,7 +22,8 @@ ob_start();
     $phone = $_POST["phone"];
     $item1 = $_POST["item1"];
     $item2 = $_POST["item2"];
-    $myDB = $_SESSION["username"];
+    $myDB = "bjekqemy_aleph";
+    $customer = $_SESSION["customer"];
     //echo $myDB;
 $db = mysqli_connect('localhost', 'bjekqemy_higgy', 'Brett73085', $myDB);
 if (isset($_POST["firstName"])) {
@@ -33,7 +34,7 @@ $phone =  preg_replace("/[^0-9]/","", $phone);
 
 //insert customer info into db
 
-  	$query = "INSERT INTO customers (firstName, lastName, email, telcarrier, phone, item1, item2)
+  	$query = "INSERT INTO $customer (firstName, lastName, email, telcarrier, phone, item1, item2)
   			  VALUES('$firstName', '$lastName', '$email', '$telcarrier', '$phone', '$item1', '$item2')";
   	mysqli_query($db, $query);
 
@@ -47,13 +48,89 @@ $phone =  preg_replace("/[^0-9]/","", $phone);
 </head>
 <body>
   <div class="header">
-  	<h2>Hitting the Highlights - Customer Input</h2>
-    <?php echo $myDB ?>
+    <h1>SimpleShare</h1>
+  	<h2>share your thoughts, products and ideas!</h2>
+  
   </div>
+
+  <form action="customer_email.php" method="POST">
+ <div>
+   <h1>SimpleShare with your lists!</h1>
+
+   <h3>Customer Email List</h3>
+
+   <?php
+
+   echo "<select id='customers' name='customers[]' multiple>";
+   $sql = "SELECT *
+   FROM $customer ORDER BY lastName";
+   //$result = $conn->query($sql);
+
+   $result=mysqli_query($db, $sql);
+   if ($result->num_rows > 0)
+             {
+
+       // output data of each row
+       while($row = $result->fetch_assoc()) {
+$firstName = $row["firstName"];
+$lastName = $row["lastName"];
+//$phone= $row["phone"];
+$email = $row["email"];
+
+
+             echo "<option value='$email'>".$firstName." ".$lastName."--".$email."</option>";
+             //echo "<option value='$phone'>".$firstName." ".$lastName."--".$phone."</option>";
+
+}
+}
+
+ ?>
+   </select>
+ </div>
+ <div>
+   <h3>Customer Text List</h3>
+   <?php
+   echo "<select id='customers' name='customers[]' multiple>";
+   $sql = "SELECT *
+   FROM $customer ORDER BY lastName";
+   //$result = $conn->query($sql);
+
+   $result=mysqli_query($db, $sql);
+   if ($result->num_rows > 0)
+             {
+
+       // output data of each row
+       while($row = $result->fetch_assoc()) {
+   $firstName = $row["firstName"];
+   $lastName = $row["lastName"];
+   $phone = $row["phone"];
+   $telcarrier = $row["telcarrier"];
+   $text = $phone.$telcarrier;
+
+
+             echo "<option value='$text'>".$firstName." ".$lastName."--".$text."</option>";
+             //echo "<option value='$phone'>".$firstName." ".$lastName."--".$phone."</option>";
+
+   }
+   }
+   ?>
+   </select>
+ </div>
+
+<div>
+
+<input type='submit' name='submit' value='Send Video!'/>
+
+
+</div>
+</form>
+
+
 
   <form method="post" action="">
   	<?php include('errors.php'); ?>
   	<div class="input-group">
+      <h1>Expand your SimpleShare lists!</h1>
   		<label>First Name</label>
   		<input type="text" name="firstName" >
   	</div>
@@ -92,76 +169,7 @@ $phone =  preg_replace("/[^0-9]/","", $phone);
   		<button type="submit" class="btn" name="login_user">Submit Customer Info</button>
   	</div>
   	 </form>
-     <form action="customer_email.php" method="POST">
-  	<div>
 
-      <h3>Customer Email List</h3>
-
-      <?php
-
-      echo "<select id='customers' name='customers[]' multiple>";
-      $sql = "SELECT *
-      FROM customers ORDER BY lastName";
-      //$result = $conn->query($sql);
-
-      $result=mysqli_query($db, $sql);
-      if ($result->num_rows > 0)
-                {
-
-          // output data of each row
-          while($row = $result->fetch_assoc()) {
-  $firstName = $row["firstName"];
-  $lastName = $row["lastName"];
-  //$phone= $row["phone"];
-  $email = $row["email"];
-
-
-                echo "<option value='$email'>".$firstName." ".$lastName."--".$email."</option>";
-                //echo "<option value='$phone'>".$firstName." ".$lastName."--".$phone."</option>";
-
-   }
-  }
-
-    ?>
-      </select>
-    </div>
-    <div>
-      <h3>Customer Text List</h3>
-      <?php
-      echo "<select id='customers' name='customers[]' multiple>";
-      $sql = "SELECT *
-      FROM customers ORDER BY lastName";
-      //$result = $conn->query($sql);
-
-      $result=mysqli_query($db, $sql);
-      if ($result->num_rows > 0)
-                {
-
-          // output data of each row
-          while($row = $result->fetch_assoc()) {
-      $firstName = $row["firstName"];
-      $lastName = $row["lastName"];
-      $phone = $row["phone"];
-      $telcarrier = $row["telcarrier"];
-      $text = $phone.$telcarrier;
-
-
-                echo "<option value='$text'>".$firstName." ".$lastName."--".$text."</option>";
-                //echo "<option value='$phone'>".$firstName." ".$lastName."--".$phone."</option>";
-
-      }
-      }
-      ?>
-      </select>
-    </div>
-
-  <div>
-
-  <input type='submit' name='submit' value='select'/>
-
-
-</div>
-</form>
 
 
 </body>

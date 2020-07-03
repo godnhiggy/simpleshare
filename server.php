@@ -12,7 +12,7 @@ $errors = array();
 // connect to the database
 
 
-$db = mysqli_connect('localhost', 'bjekqemy_higgy', 'Brett73085', 'bjekqemy_hth')or die("cannot connect");
+$db = mysqli_connect('localhost', 'bjekqemy_higgy', 'Brett73085', 'bjekqemy_aleph')or die("cannot connect");
 // Check connection
 
 if ($db->connect_error) {
@@ -97,6 +97,11 @@ if (isset($_POST['login_user'])) {
   	if (mysqli_num_rows($results) == 1) {
   	  $_SESSION['username'] = $username;
   	  $_SESSION['success'] = "You are now logged in";
+
+      $_SESSION["customer"] = $username."_customer";
+      $_SESSION["picture"] = $username."_picture";
+      $_SESSION["url"] = $username."_url";
+
     header('location: video_input.php');
 
   	}else {

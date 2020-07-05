@@ -4,13 +4,13 @@ An initial app effort that combines two thoughts into a simple user interface.
 2. Email/Text Message contact list 
 Combining these two thoughts allows the user to target an audience with their thoughts and products in a unique way.
 
-This project has multiple purploses, all of which is for my own growth in the following areas.
+This project has multiple purposes, all of which is for my own growth in the following areas.
   a. To develop a functional app that can genuinely help others.
   b. To develop my personal programming skills (I have an exciting journey ahead.... :] )
   c. To develop my teaching skills for my high school Computer Science program
   
   The functionality of the app is very limited as of the original push.
-Possible future features:
+Possible future focus and features of this project:
   a. personalizing the videos to individuals within the group that the video is sent to
   b. organizing contacts into readily identifiable and choosable "permanent" groups
   c. finding a way to automatically search, find and choose from public information phone service providers for the text messaging feature(a very sticky issue)
@@ -25,5 +25,5 @@ Possible future features:
   k. prospect users of app for vetting process
   l. prospect monetizing ideas if feasible
   m. encourage development ideas from others
-  n.
-  o.
+  n. develop ability to teach others how to install and run mysql on local machine for development purposes
+  o. 
